@@ -335,9 +335,11 @@
           <line x1="322" y1="170" x2="336" y2="170" stroke="#a855f7" stroke-width="2.5" />
         </svg>
 
-        <!-- Central 3D Quantum Reactor Core (No text) -->
+        <!-- Central 3D Quantum Reactor Core with Ryan's Portrait (No white text) -->
         <div class="core-viewport">
+          <img src="/profile-square.png" alt="" class="profile-photo" aria-hidden="true" />
           <canvas bind:this={canvasRef} class="quantum-canvas" aria-hidden="true"></canvas>
+          <div class="core-hologram-overlay" aria-hidden="true"></div>
           <div class="core-scanline" aria-hidden="true"></div>
           <div class="core-vignette" aria-hidden="true"></div>
         </div>
@@ -723,12 +725,41 @@
     align-items: center;
   }
 
+  .profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    filter: contrast(1.06) brightness(1.02);
+    transition: transform 0.4s ease-out;
+  }
+
+  .core-viewport:hover .profile-photo {
+    transform: scale(1.05);
+  }
+
   .quantum-canvas {
     width: 100%;
     height: 100%;
     display: block;
     position: absolute;
     inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.78;
+  }
+
+  .core-hologram-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, transparent 45%, rgba(124, 58, 237, 0.18) 75%, rgba(6, 182, 212, 0.35) 100%);
+    pointer-events: none;
+    z-index: 3;
   }
 
   /* Scanline sweep across the core */
